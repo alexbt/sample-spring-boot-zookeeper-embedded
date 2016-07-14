@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.alexbt</groupId>
-	<artifactId>example-spring-cloud-config-server-bootstrap</artifactId>
+	<artifactId>example-spring-zookeeper-embedded</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
@@ -56,6 +56,13 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.kitesdk</groupId>
+			<artifactId>kite-data-core</artifactId>
+			<version>1.1.0</version>
+		</dependency>
+
+
+		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-zookeeper-discovery</artifactId>
 		</dependency>
@@ -76,9 +83,11 @@
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>3.1</version>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
 		</dependency>
+
+
 
 
 		<dependency>
@@ -93,6 +102,12 @@
 			<groupId>org.springframework.xd</groupId>
 			<artifactId>spring-xd-dirt</artifactId>
 			<version>1.0.4.RELEASE</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>servlet-api</artifactId>
+					<groupId>javax.servlet</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 	</dependencies>
