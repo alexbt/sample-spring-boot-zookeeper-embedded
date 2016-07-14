@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: application
+  cloud:
+    zookeeper:
+      connect-string: localhost:2181
+      dependency:
+        enabled: true
