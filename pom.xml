@@ -9,7 +9,7 @@
 	</parent>
 
 	<groupId>com.alexbt</groupId>
-	<artifactId>example-spring-zookeeper-embedded</artifactId>
+	<artifactId>helloworld-spring-boot-zookeeper-embedded</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
