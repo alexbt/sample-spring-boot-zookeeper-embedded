@@ -24,8 +24,8 @@
 	</properties>
 
 	<modules>
-		<module>example-spring-zookeeper-client</module>
-		<module>example-spring-zookeeper-server</module>
+		<module>sample-spring-boot-zookeeper-client</module>
+		<module>sample-spring-boot-zookeeper-server</module>
 	</modules>
 
 	<dependencyManagement>
