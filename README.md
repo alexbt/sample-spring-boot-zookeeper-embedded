@@ -1,17 +1,16 @@
-What is this?
+What's up with repo ?
 -------------------
-This project is me playing around with Zookeeper. Keep in mind that I know very little about this product.
-This sample project uses :
+This project is me playing around with Zookeeper. Keep in mind that I'm not an export on this product. This sample project uses :
 * spring-boot
 * Apache's (Netflix's) Curator API to deal with Zookeeper
 * XD Dirt's Embedded Zookeeper (so no need to install anything)
 
-The scope is very simple, it simply allows to:
+The scope is very simple, it allows to:
 * read/write data from Zookeeper
 * list visible services
 * have one service be notified when another service registers
 
-Get the code
+Get the code - do it
 -------------------
 Clone the repository:
 
@@ -29,22 +28,16 @@ From the command line:
     $ mvn spring-boot:run -Dspring.profiles.active=zookeeper,one &
     $ mvn spring-boot:run -Dspring.profiles.active=two
     
+The first spring-boot:run is launched in the background, when you are done, you may kill it:
+
+    $ sudo pkill -f sample-spring-boot-zookeeper-embedded
     
-Or in an IDE:
+To launch inside an IDE:
 * Import sample-spring-boot-zookeeper-embedded as a maven project
 * launch LauncherServiceOneWithZookeeper
 * launch LauncherServiceTwo
-    
-Open a browser to http://localhost:8080/zookeeper
 
-The simple operations available are displayed in the welcome page:
-* Lists visible services
-* Sets data in zookeeper
-* Retrieves data from zookeeper
-* Lists dependency listeners
-
-
-Overview
+It's running - so what?
 -------------------
 Launching the project with profiles "zookeeper" and "one" will start an embedded Zookeeper server, as well as registering the spring-boot application named "service-one" to it.
 
