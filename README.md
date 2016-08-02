@@ -26,7 +26,7 @@ From the command line:
     $ cd sample-spring-boot-zookeeper-embedded
     $ mvn clean install
     
-    $ mvn spring-boot:run -Dspring.profiles.active=zookeeper,one 
+    $ mvn spring-boot:run -Dspring.profiles.active=zookeeper,one &
     $ mvn spring-boot:run -Dspring.profiles.active=two
     
     

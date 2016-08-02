@@ -1,1 +1,1 @@
-org.springframework.context.ApplicationListener=com.alexbt.zookeeper.AppEvent
+org.springframework.context.ApplicationListener=com.alexbt.zookeeper.embedded.EmbeddedZookeeperLauncher
