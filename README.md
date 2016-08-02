@@ -1,4 +1,4 @@
-What's up with repo ?
+What's up with this repo ?
 -------------------
 This project is me playing around with Zookeeper. Keep in mind that I'm not an export on this product. This sample project uses :
 * spring-boot
