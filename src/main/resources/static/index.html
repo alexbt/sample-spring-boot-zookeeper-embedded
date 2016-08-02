@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>Zookeeper Sample project</title>
+</head>
+<body>
+<h1>Zookeeper Sample project</h1>
+
+Service-one:
+<lu>
+	<li><a href="http://localhost:8080/zookeeper/services" target="_blank">Lists visible services</a>
+	<li><a href="http://localhost:8080/zookeeper/properties/mykey/myvalue" target="_blank">Sets data in zookeeper</a> (see uri to change key/value)
+	<li><a href="http://localhost:8080/zookeeper/properties/mykey" target="_blank">Retrieves data from zookeeper</a> (see uri to change the key)
+	<li><a href="http://localhost:8080/zookeeper/listeners" target="_blank">Lists dependency listeners</a> (requires service-two to be registered)
+</lu>
+
+<br/><br/>
+
+Service-two:
+<lu>
+	<li><a href="http://localhost:8081/zookeeper/services" target="_blank">Lists visible services</a>
+	<li><a href="http://localhost:8081/zookeeper/properties/myotherkey/myothervalue" target="_blank">Sets data in zookeeper</a> (see uri to change key/value)
+	<li><a href="http://localhost:8081/zookeeper/properties/myotherkey" target="_blank">Retrieves data from zookeeper</a> (see uri to change the key)
+</lu
+</body>
+
+</html>

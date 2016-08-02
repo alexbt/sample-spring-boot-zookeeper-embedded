@@ -1,0 +1,5 @@
+server.contextPath: /zookeeper
+spring.cloud.zookeeper:
+  connect-string: localhost:2181
+  dependency:
+    enabled: true

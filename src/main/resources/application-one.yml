@@ -1,0 +1,9 @@
+server.port: 8080
+spring.application.name: service-one
+spring.cloud.zookeeper.dependencies:
+  service-two-alias:
+    path: service-two
+    #loadBalancerType: ROUND_ROBIN
+    #contentTypeTemplate: application/vnd.mailing.$version+json
+    #version: v1
+    required: false

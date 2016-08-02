@@ -1,0 +1,78 @@
+package com.alexbt.zookeeper;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.curator.framework.CuratorFramework;
+import org.apache.zookeeper.data.Stat;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.xd.dirt.zookeeper.ZooKeeperConnection;
+
+@RestController
+public class ZooClientController {
+
+	@Value("${spring.application.name}")
+	private String serviceName;
+
+	@Autowired
+	private DiscoveryClient discovery;
+
+	@Autowired
+	private ZooKeeperConnection zooKeeperConnection;
+	
+	@Autowired
+	private ZookeeperListener zookeeperListener;
+	
+	@RequestMapping(value = "listeners", method = RequestMethod.GET)
+	public String listeners() throws Exception {
+		return "This service listens for : " + zookeeperListener.getDependencies();
+
+	}
+
+	@RequestMapping(value = "services", method = RequestMethod.GET)
+	public List<ServiceInstance> test() throws Exception {
+		List<ServiceInstance> instances = new ArrayList<ServiceInstance>();
+		for (String name : discovery.getServices()) {
+			instances.addAll(discovery.getInstances(name));
+		}
+
+		CuratorFramework testCuratorFw = zooKeeperConnection.getClient().usingNamespace("test");
+
+		testCuratorFw.createContainers("/data");
+
+		testCuratorFw.getZookeeperClient().getZooKeeper()//
+				.setData("/test/data", ("test" + System.currentTimeMillis()).getBytes(), -1);
+
+		return instances;
+	}
+
+	@RequestMapping(value = "properties/{propertyName}/{propertyValue}", method = RequestMethod.GET)
+	public String setProperty(@PathVariable("propertyName") String propertyName,
+			@PathVariable("propertyValue") String propertyValue) throws Exception {
+		CuratorFramework testCuratorFw = zooKeeperConnection.getClient().usingNamespace("test");
+		testCuratorFw.createContainers("/" + propertyName);
+		testCuratorFw.getZookeeperClient().getZooKeeper()//
+				.setData("/test/" + propertyName, propertyValue.getBytes(), -1);
+		
+		return "set property: " + viewProperty(propertyName);
+	}
+
+	@RequestMapping(value = "properties/{propertyName}", method = RequestMethod.GET)
+	public String viewProperty(@PathVariable("propertyName") String propertyName) throws Exception {
+		CuratorFramework testCuratorFw = zooKeeperConnection.getClient().usingNamespace("test");
+		Stat stat = testCuratorFw.checkExists().forPath("/" + propertyName);
+
+		if (stat != null) {
+			return propertyName + " = " + new String(testCuratorFw.getData().forPath("/" + propertyName));
+		} else {
+			return "Property " + propertyName + " does not exist";
+		}
+	}
+}
