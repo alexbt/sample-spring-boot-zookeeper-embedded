@@ -39,16 +39,16 @@ To launch inside an IDE:
 
 It's running - so what?
 -------------------
-Launching the project with profiles "zookeeper" and "one" will start an embedded Zookeeper server, as well as registering the spring-boot application named "service-one" to it.
+Launching the project with profiles "zookeeper" and **one** will start an embedded Zookeeper server, as well as registering the spring-boot application named **service-one** to it.
 
 At this point, you may :
-* type http://localhost:8080/zookeeper to view the welcome page
+* type [http://localhost:8080/zookeeper](http://localhost:8080/zookeeper) to view the welcome page
 * list the registered services (only service-one)
 * add sample data to zookeeper
 * read the data from zookeeper
 
 Also, service-one is listening for service-two, meanining it will be notified when service-two registers to zookeeper.
 
-If you launch the spring-boot application with profile "two", it will start another instance named "service-two" and register it to zookeeper. service-one will then be notified, you may now (from the welcome-page):
+If you launch the spring-boot application with profile **two**, it will start another instance named **service-two** and register it to zookeeper. **service-one** will then be notified. From the welcome page, you may now :
 
 * list the dependency listeners (you could have done it before service-two registers, but it would have been empty).
