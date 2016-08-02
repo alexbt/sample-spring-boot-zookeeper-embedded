@@ -1,14 +1,15 @@
 What's up with this repo ?
 -------------------
 This project is me playing around with Zookeeper. This sample project uses :
-* spring-boot
-* Apache's (Netflix's) Curator API to deal with Zookeeper
-* XD Dirt's Embedded Zookeeper (so no need to install anything)
+* spring-boot;
+* Apache's Zookeeper;
+* Apache's (Netflix's) Curator API on top of Zookeeper;
+* XD Dirt's Embedded Zookeeper (so no need to install anything).
 
 The scope is very simple, it allows to:
 * register services to zookeeper;
 * list visible services (from a service's point of view);
-* * read/write data from Zookeeper;
+* read/write data from Zookeeper;
 * have a service notified when another service registers.
 
 Get the code - do it
