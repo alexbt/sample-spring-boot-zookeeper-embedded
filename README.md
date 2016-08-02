@@ -1,6 +1,6 @@
 What's up with this repo ?
 -------------------
-This project is me playing around with Zookeeper. Keep in mind that I'm not an export on this product. This sample project uses :
+This project is me playing around with Zookeeper. This sample project uses :
 * spring-boot
 * Apache's (Netflix's) Curator API to deal with Zookeeper
 * XD Dirt's Embedded Zookeeper (so no need to install anything)
