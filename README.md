@@ -1,7 +1,15 @@
 What is this?
 -------------------
 This project is me playing around with Zookeeper. Keep in mind that I know very little about this product.
-This sample project uses spring-boot, Apache's (Netflix's) Curator API to deal with Zookeeper.
+This sample project uses :
+* spring-boot
+* Apache's (Netflix's) Curator API to deal with Zookeeper
+* XD Dirt's Embedded Zookeeper (so no need to install anything)
+
+The scope is very simple, it simply allows to:
+* read/write data from Zookeeper
+* list visible services
+* have one service be notified when another service registers
 
 Get the code
 -------------------
@@ -48,6 +56,6 @@ At this point, you may :
 
 Also, service-one is listening for service-two, meanining it will be notified when service-two registers to zookeeper.
 
-If you launch the spring-boot application with profile "two", it will start another instance named "service-two" and register it to zookeeper. service-one is notified, so from the welcome page, you may:
+If you launch the spring-boot application with profile "two", it will start another instance named "service-two" and register it to zookeeper. service-one will then be notified, you may now (from the welcome-page):
 
-* list the dependency listeners (you could do it before service-two registers, but it would be empty).
+* list the dependency listeners (you could have done it before service-two registers, but it would have been empty).
