@@ -3,26 +3,12 @@ What is this?
 This project is me playing around with Zookeeper. Keep in mind that I know very little about this product.
 This sample project uses spring-boot, Apache's (Netflix's) Curator API to deal with Zookeeper.
 
-Overview
--------------------
-The main entry point isLauncherZookeeperWithServiceOne, which launches Spring-Boot using "zookeeper" profile.
-This starts an Embedded Zookeeper server, and lunches the application with ("service-one") with automatic client discovery.
-application-zookeeper.yml specifies where the application will look for Zookeeper.
-
-Another entry point is available, simply to show how 2 services can see each other through Zookeeper.
-LauncherServiceTwo.java starts the application using profile "two", which reigsters the service "service-two".
-
-The projects contains:
-* LauncherZookeeperWithServiceOne: starts an embedded zookeeper + launches service-one
-* LauncherServiceTwo: launches service-two
-* ZooClientController: a RestController allowing to interact with Zookeeper (read/write data)
-* ZookeeperListener: a Zookeeper listener. service-one listens when service-two gets up.
-
 Get the code
 -------------------
 Clone the repository:
 
     $ git clone git://github.com/alexturcot/sample-spring-boot-zookeeper-embedded
+
 
 
 How to launch
@@ -49,3 +35,19 @@ The simple operations available are displayed in the welcome page:
 * Retrieves data from zookeeper
 * Lists dependency listeners
 
+
+Overview
+-------------------
+Launching the project with profiles "zookeeper" and "one" will start an embedded Zookeeper server, as well as registering the spring-boot application named "service-one" to it.
+
+At this point, you may :
+* type http://localhost:8080/zookeeper to view the welcome page
+* list the registered services (only service-one)
+* add sample data to zookeeper
+* read the data from zookeeper
+
+Also, service-one is listening for service-two, meanining it will be notified when service-two registers to zookeeper.
+
+If you launch the spring-boot application with profile "two", it will start another instance named "service-two" and register it to zookeeper. service-one is notified, so from the welcome page, you may:
+
+* list the dependency listeners (you could do it before service-two registers, but it would be empty).

@@ -1,10 +1,10 @@
-package com.alexbt.zookeeper;
+package com.alexbt.zookeeper.embedded;
 
 import org.springframework.xd.dirt.zookeeper.EmbeddedZooKeeper;
 
-public class ZookeeperUtil {
+public class EmbeddedZookeeperUtil {
 	
-	private final static EmbeddedZooKeeper embeddedZooKeeper = new EmbeddedZooKeeper(2181);
+	private static final EmbeddedZooKeeper embeddedZooKeeper = new EmbeddedZooKeeper(2181);
 
 	public static void start(){
 		embeddedZooKeeper.start();

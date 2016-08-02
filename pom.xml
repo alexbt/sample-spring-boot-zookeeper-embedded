@@ -12,7 +12,6 @@
 		<java.version>1.8</java.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
-		<start-class>com.alexbt.zookeeper.ZookeeperSpringBootApp</start-class>
 	</properties>
 
 	<dependencyManagement>
@@ -130,7 +129,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>com.alexbt.zookeeper.ZookeeperSpringBootApp</mainClass>
+					<mainClass>com.alexbt.zookeeper.SampleSpringBootApp</mainClass>
 				</configuration>
 				<executions>
 					<execution>

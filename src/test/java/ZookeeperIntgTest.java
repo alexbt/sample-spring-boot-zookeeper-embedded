@@ -16,12 +16,12 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.xd.dirt.zookeeper.ZooKeeperConnection;
 
-import com.alexbt.zookeeper.ZooClientController;
-import com.alexbt.zookeeper.ZookeeperSpringBootApp;
-import com.alexbt.zookeeper.ZookeeperUtil;
+import com.alexbt.zookeeper.SampleController;
+import com.alexbt.zookeeper.SampleSpringBootApp;
+import com.alexbt.zookeeper.embedded.EmbeddedZookeeperUtil;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = ZookeeperSpringBootApp.class)
+@SpringApplicationConfiguration(classes = SampleSpringBootApp.class)
 @WebIntegrationTest
 @ActiveProfiles({"zookeeper", "one"})
 public class ZookeeperIntgTest {
@@ -35,13 +35,13 @@ public class ZookeeperIntgTest {
 
 	@BeforeClass
 	public static void startZookeeper() {
-		ZookeeperUtil.start();
+		EmbeddedZookeeperUtil.start();
 	}
 
 	@AfterClass
 	public static void after() {
 		curatorFramework.close();
-		ZookeeperUtil.stop();
+		EmbeddedZookeeperUtil.stop();
 	}
 
 	@Autowired
@@ -50,7 +50,7 @@ public class ZookeeperIntgTest {
 	}
 
 	@Autowired
-	private ZooClientController zooClientController;
+	private SampleController zooClientController;
 
 	private String ns = "test";
 
