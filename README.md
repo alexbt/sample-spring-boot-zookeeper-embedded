@@ -1,14 +1,16 @@
-What's up with repo ?
+What's up with this repo ?
 -------------------
-This project is me playing around with Zookeeper. Keep in mind that I'm not an export on this product. This sample project uses :
-* spring-boot
-* Apache's (Netflix's) Curator API to deal with Zookeeper
-* XD Dirt's Embedded Zookeeper (so no need to install anything)
+This project is me playing around with Zookeeper. This sample project uses :
+* spring-boot;
+* Apache's Zookeeper;
+* Apache's (Netflix's) Curator API on top of Zookeeper;
+* XD Dirt's Embedded Zookeeper (so no need to install anything).
 
 The scope is very simple, it allows to:
-* read/write data from Zookeeper
-* list visible services
-* have one service be notified when another service registers
+* register services to zookeeper;
+* list visible services (from a service's point of view);
+* read/write data from Zookeeper;
+* have a service notified when another service registers.
 
 Get the code - do it
 -------------------
@@ -33,19 +35,19 @@ The first spring-boot:run is launched in the background, when you are done, you 
     $ sudo pkill -f sample-spring-boot-zookeeper-embedded
     
 To launch inside an IDE:
-* Import sample-spring-boot-zookeeper-embedded as a maven project
-* launch LauncherServiceOneWithZookeeper
-* launch LauncherServiceTwo
+* Import sample-spring-boot-zookeeper-embedded as a maven project;
+* launch LauncherServiceOneWithZookeeper;
+* launch LauncherServiceTwo.
 
 It's running - so what?
 -------------------
 Launching the project with profiles "zookeeper" and **one** will start an embedded Zookeeper server, as well as registering the spring-boot application named **service-one** to it.
 
 At this point, you may :
-* type [http://localhost:8080/zookeeper](http://localhost:8080/zookeeper) to view the welcome page
-* list the registered services (only service-one)
-* add sample data to zookeeper
-* read the data from zookeeper
+* type [http://localhost:8080/zookeeper](http://localhost:8080/zookeeper) to view the welcome page;
+* list the registered services (only service-one);
+* add sample data to zookeeper;
+* read the data from zookeeper.
 
 Also, service-one is listening for service-two, meanining it will be notified when service-two registers to zookeeper.
 
