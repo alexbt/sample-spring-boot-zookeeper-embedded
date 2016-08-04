@@ -40,7 +40,7 @@ public class EmbeddedZookeeperLauncher implements ApplicationListener<Applicatio
 }
 ```
 
-To wire the ApplicationListener is triggered, it is defined in 
+To wire the ApplicationListener, it is defined in 
 > META-INF/spring.factories:
 
 ```
