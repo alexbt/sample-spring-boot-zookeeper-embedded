@@ -28,7 +28,7 @@ This project relies on an embedded Zookeeper server, which can be launch simply 
 
 It's as simple as this: ```new EmbeddedZooKeeper(2181).start()``` without having to install anything.
 
-However, since I'm using ```@EnableDiscoveryClient```, the client registration happens as soon as Spring starts up. For this reason, I added a an ApplicationListener to launch Zookeeper before any client tries to register: 
+However, since I'm using ```@EnableDiscoveryClient```, the client registration happens as soon as Spring starts up. For this reason, I added an ApplicationListener to launch Zookeeper before any client tries to register: 
 ```
 public class EmbeddedZookeeperLauncher implements ApplicationListener<ApplicationStartedEvent>{
 	@Override
@@ -50,14 +50,7 @@ org.springframework.context.ApplicationListener=com.alexbt.zookeeper.embedded.Em
 
 **Register services**
 
-I created 2 spring profile configuration, each representing a service, which will register itself thanks to ```@EnableDiscoveryClient```: 
-
-```
-@SpringBootApplication
-@EnableDiscoveryClient
-public class SampleSpringBootApp {
-```
-
+I created 2 spring profile configuration, each representing a service. 
 Both profiles are defined in yaml:
 
 > application-one-yml:
@@ -68,6 +61,13 @@ spring.cloud.zookeeper.dependencies:
   service-two-alias:
     path: service-two
     required: false
+```
+
+The service register itself thanks to EnableDiscoveryClient:
+```
+@SpringBootApplication
+@EnableDiscoveryClient
+public class SampleSpringBootApp {
 ```
 
 > application-two-yml:
