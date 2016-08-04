@@ -40,7 +40,7 @@ public class EmbeddedZookeeperLauncher implements ApplicationListener<Applicatio
 }
 ```
 
-To make sure that the ApplicationListener is triggered through Spring-boot, I defined it in 
+To wire the ApplicationListener is triggered, it is defined in 
 > META-INF/spring.factories:
 
 ```
