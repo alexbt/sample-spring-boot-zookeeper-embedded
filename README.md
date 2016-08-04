@@ -12,6 +12,148 @@ The scope is very simple, it allows to:
 * read/write data from Zookeeper;
 * have a service notified when another service registers.
 
+
+Walkthrough
+-------------------
+**Embedded Zookeeper**
+
+This project relies on an embedded Zookeeper server, which can be launch simply by using **spring-xd-dirt** :
+
+```
+<dependency>
+	<groupId>org.springframework.xd</groupId>
+	<artifactId>spring-xd-dirt</artifactId>
+<dependency>
+```
+
+It's as simple as this: ```new EmbeddedZooKeeper(2181).start()``` without having to install anything.
+
+However, since I'm using ```@EnableDiscoveryClient```, the client registration happens as soon as Spring starts up. For this reason, I added a an ApplicationListener to launch Zookeeper before any client tries to register: 
+```
+public class EmbeddedZookeeperLauncher implements ApplicationListener<ApplicationStartedEvent>{
+	@Override
+	public void onApplicationEvent(ApplicationStartedEvent event) {
+	   ...
+		embeddedZooKeeper.start();
+	   ...
+    }
+}
+```
+
+To make sure that the ApplicationListener is triggered through Spring-boot, I defined it in 
+> META-INF/spring.factories:
+
+```
+org.springframework.context.ApplicationListener=com.alexbt.zookeeper.embedded.EmbeddedZookeeperLauncher
+```
+
+
+**Register services**
+
+I created 2 spring profile configuration, each representing a service, which will register itself thanks to ```@EnableDiscoveryClient```: 
+
+```
+@SpringBootApplication
+@EnableDiscoveryClient
+public class SampleSpringBootApp {
+```
+
+Both profiles are defined in yaml:
+
+> application-one-yml:
+```
+server.port: 8080
+spring.application.name: service-one
+spring.cloud.zookeeper.dependencies:
+  service-two-alias:
+    path: service-two
+    required: false
+```
+
+> application-two-yml:
+```
+server.port: 8081
+spring.application.name: service-two
+```
+
+* Profile *one* registers the service *service-one*, while *two* registers *service-two*
+* Service-one launches on port 8081, while service-two launches on port 8081.
+* Service-one *listens* to service-two registration.
+
+
+**Zookeeper Listener**
+
+Because service define ```spring.cloud.zookeeper.dependencies```, Zookeeper will look for DependencyWatcherListener's implementation:
+
+```
+@Service
+public class ZookeeperListener implements DependencyWatcherListener {
+	@Override
+	public void stateChanged(String dependencyName, DependencyState newState) {
+		...
+	}
+}
+```	
+
+service-one will is notified of service-two's change of state (connected or not to zookeeper). 
+
+**Zookeeper operations**
+
+Few URI are made to trigger operations on Zookeeper, here's the interesting code:
+
+Listing visible services using Curator:
+
+```
+@Autowired
+private DiscoveryClient discovery;
+
+List<ServiceInstance> instances = new ArrayList<ServiceInstance>();
+for (String name : discovery.getServices()) {
+	instances.addAll(discovery.getInstances(name));
+}
+System.out.println(instances);
+```
+
+This prints the visible ServiceInstances:
+```
+[{"serviceId":"service-one","host":"192.168.1.103","port":8080,"secure":false,"metadata":{},"uri":"http://192.168.1.103:8080"},
+{"serviceId":"service-two","host":"192.168.1.103","port":8081,"secure":false,"metadata":{},"uri":"http://192.168.1.103:8081"}]
+```
+
+
+create an empty node using Curator:
+
+```
+@Autowired
+private ZooKeeperConnection zooKeeperConnection;
+	
+CuratorFramework testCuratorFw = zooKeeperConnection.getClient().usingNamespace("test");
+testCuratorFw.createContainers("/mynode");
+```
+
+create a node with data using Curator:
+
+```
+testCuratorFw.create().withACL(Ids.OPEN_ACL_UNSAFE).forPath("/node", "data".getBytes());
+```
+
+create a node with data using Zookeeper's API:
+```
+final int ZOOKEEPER_IGORE_VERSIONS_FLAG = -1
+testCuratorFw.getZookeeperClient().getZooKeeper().setData("/test/node", "data".getBytes(), ZOOKEEPER_IGORE_VERSIONS_FLAG);
+```
+
+read the data using Curator:
+
+```	
+Stat stat = testCuratorFw.checkExists().forPath("/node");
+if (stat != null) {
+	String data = new String(testCuratorFw.getData().forPath("/node"));
+}
+```
+
+
+
 Get the code - do it
 -------------------
 Clone the repository:
