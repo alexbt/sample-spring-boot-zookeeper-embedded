@@ -193,7 +193,8 @@ At this point, you may :
 * read the data from zookeeper.
 
 <a name="test"/>
-# test
+test
+-----
 
 Also, service-one is listening for service-two, meanining it will be notified when service-two registers to zookeeper.
 
