@@ -191,7 +191,7 @@ At this point, you may :
 * list the registered services (only service-one);
 * add sample data to zookeeper;
 * read the data from zookeeper.
-# test
+## test
 Also, service-one is listening for service-two, meanining it will be notified when service-two registers to zookeeper.
 
 If you launch the spring-boot application with profile **two**, it will start another instance named **service-two** and register it to zookeeper. **service-one** will then be notified. From the welcome page, you may now :
