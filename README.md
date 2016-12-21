@@ -1,3 +1,4 @@
+[test](#test)
 What's up with this repo ?
 -------------------
 This project is me playing around with Zookeeper. This sample project uses :
@@ -190,6 +191,9 @@ At this point, you may :
 * list the registered services (only service-one);
 * add sample data to zookeeper;
 * read the data from zookeeper.
+
+<a name="test"/>
+# test
 
 Also, service-one is listening for service-two, meanining it will be notified when service-two registers to zookeeper.
 
