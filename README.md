@@ -1,4 +1,3 @@
-[test](#test)
 What's up with this repo ?
 -------------------
 This project is me playing around with Zookeeper. This sample project uses :
