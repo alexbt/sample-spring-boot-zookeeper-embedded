@@ -1,4 +1,4 @@
-[test](#test)
+[test](#ingt-test)
 What's up with this repo ?
 -------------------
 This project is me playing around with Zookeeper. This sample project uses :
@@ -192,7 +192,7 @@ At this point, you may :
 * add sample data to zookeeper;
 * read the data from zookeeper.
 
-<a name="test"/>
+<a name="intg-test"/>
 test
 -----
 
